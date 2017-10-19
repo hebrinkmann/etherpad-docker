@@ -1,0 +1,21 @@
+version: '3'
+services:
+  web:
+    build: .
+    ports:
+     - "9001:9001"
+    depends_on:
+      - db
+  db:
+        image: mariadb
+        restart: always
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+            MYSQL_DATABASE: etherpad
+        volumes:
+          - "./mysql:/etc/mysql"
+  adminer:
+        image: adminer
+        restart: always
+        ports:
+            - 8080:8080
